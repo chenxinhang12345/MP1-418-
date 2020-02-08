@@ -170,9 +170,10 @@ function setupBuffers() {
   var b12 = [0.525,-0.225,0.0]
   var triangleVertices = a1.concat(a3,a4 ,a1,a2,a4 ,a2,a4,a5, a2,a5,a6, a4,a5,a7, a5,a7,a8, a11,a7,a9, a7,a8,a10, a7,a9,a10, a8,a12,a10, b1,a1,a2, b1,b2,a2, b1,a1,a3, b3,a3,b1, a3,a4,b3, b3,b4,a4, a2,b2,a6, b6,a6,b2, a5,a6,b6, a5,b5,b6, a4,b4,a7, b4,b7,a7, b11,b7,a7, 
    b11,a11,a7, b11,a11,a9, b11,b9,a9, b9,a9,a10, b9,b10,a10, a12,a10,b10, a12,b12,b10, a12,b12,b8,  b8,a8,a12, a8,b8,a5, a5,b5,b8)
-  for (i = 0; i <= triangleVertices.length;i++){
-     triangleVertices[0][1]+=frameNumber*0.05;
-     triangleVertices[0][2]+=frameNumber*0.05;
+  for (i = 0; i <= triangleVertices.length;i+=3){
+     triangleVertices[i]+=frameNumber*0.002;
+    //  triangleVertices[i+1]+=frameNumber*0.05;
+     console.log(triangleVertices[0],'success')
   }
   console.log(frameNumber);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.DYNAMIC_DRAW);
@@ -190,20 +191,8 @@ function setupBuffers() {
     i = 0;
     color = [70.0/255,130.0/255,180.0/255,1.0]
     for(;i<72;i++){
-        
         colors = colors.concat(color);
     }
-//  var colors = [
-//        1.0, 69.0/255, 0.0, 1.0,
-//        1.0, 69.0/255, 0.0, 1.0,
-//        1.0, 69.0/255, 0.0, 1.0,
-//      1.0, 69.0/255, 0.0, 1.0,
-//        1.0, 69.0/255, 0.0, 1.0,
-//        1.0, 69.0/255, 0.0, 1.0,
-//      1.0, 69.0/255, 0.0, 1.0,
-//        1.0, 69.0/255, 0.0, 1.0,
-//        1.0, 69.0/255, 0.0, 1.0
-//    ];
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.DYNAMIC_DRAW);
   vertexColorBuffer.itemSize = 4;
   vertexColorBuffer.numItems = 102;
@@ -265,60 +254,6 @@ function animate() {
     if (lastTime != 0) {
         var elapsed = timeNow - lastTime;    
         rotAngle= (rotAngle+1.0) % 360;
-//         vertexPositionBuffer = gl.createBuffer();
-//   gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
-//   var a1 = [-0.5,0.5,0.0]
-//   var a2 = [0.5,0.5,0.0]
-//   var a3 = [-0.5,0.25,0.0]
-//   var a4 = [-0.25,0.25,0.0]
-//   var a5 = [0.25,0.25,0.0]
-//   var a6 = [0.5,0.25,0.0]
-//   var a7 = [-0.25,-0.25,0.0]
-//   var a8 = [0.25,-0.25,0.0]
-//   var a9 = [-0.5,-0.5,0.0]
-//   var a10 = [0.5,-0.5,0.0]
-//   var a11 = [-0.5,-0.25,0.0]
-//   var a12 = [0.5,-0.25,0.0]
-//   var b1 = [-0.525,0.525,0.0]
-//   var b2 = [0.525,0.525,0.0]
-//   var b3 = [-0.525,0.225,0.0]
-//   var b6 = [0.525,0.225,0.0]
-//   var b4 = [-0.275,0.225,0.0]
-//   var b5 = [0.275,0.225,0.0]
-//   var b7 = [-0.275,-0.225,0.0]
-//   var b8 = [0.275,-0.225,0.0]
-//   var b9 = [-0.525,-0.525,0.0]
-//   var b10 = [0.525,-0.525,0.0]
-//   var b11 = [-0.525,-0.225,0.0]
-//   var b12 = [0.525,-0.225,0.0]
-//   var triangleVertices = a1.concat(a3,a4 ,a1,a2,a4 ,a2,a4,a5, a2,a5,a6, a4,a5,a7, a5,a7,a8, a11,a7,a9, a7,a8,a10, a7,a9,a10, a8,a12,a10, b1,a1,a2, b1,b2,a2, b1,a1,a3, b3,a3,b1, a3,a4,b3, b3,b4,a4, a2,b2,a6, b6,a6,b2, a5,a6,b6, a5,b5,b6, a4,b4,a7, b4,b7,a7, b11,b7,a7, 
-//    b11,a11,a7, b11,a11,a9, b11,b9,a9, b9,a9,a10, b9,b10,a10, a12,a10,b10, a12,b12,b10, a12,b12,b8,  b8,a8,a12, a8,b8,a5, a5,b5,b8)
-//    var i;
-// for (i = 0; i < triangleVertices.length; i++) { 
-//   if((i+1)%3==2){
-//   triangleVertices[i] = triangleVertices[i]+0.7*Math.sin(degToRad(rotAngle));
-//   }
-// }
-//   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.DYNAMIC_DRAW);
-//   vertexPositionBuffer.itemSize = 3;
-//   vertexPositionBuffer.numberOfItems = 102;
-//   vertexColorBuffer = gl.createBuffer();
-//   gl.bindBuffer(gl.ARRAY_BUFFER, vertexColorBuffer);
-//     var i = 0;
-//     var color = [1.0, 69.0/255, 0.0, 1.0]
-//     var colors = []
-//     for (;i < 30;i++){
-//         colors = colors.concat(color);
-//     }
-//     i = 0;
-//     color = [70.0/255,130.0/255,180.0/255,1.0];
-//     for(;i<72;i++){
-        
-//         colors = colors.concat(color);
-//     }
-//   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.DYNAMIC_DRAW);
-//   vertexColorBuffer.itemSize = 4;
-//   vertexColorBuffer.numItems = 102;  
      }
     lastTime = timeNow;
 }
@@ -418,6 +353,7 @@ function tick() {
 */
 function Myanimation(){
   type = 0;
+  frameNumber = 0;
 }
 
 /**
@@ -425,4 +361,5 @@ function Myanimation(){
  */
 function Logoanimation(){
   type = 1;
+  frameNumber = 0;
 }
