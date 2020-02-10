@@ -2,7 +2,7 @@
 *@file MP 1: Dancing Logo
 * @author Eric Shaffer <shaffer1@eillinois.edu>
 * @author Xinhang Chen <xinhang2@illinois.edu>
-Use HelloAnimation.js as setup code.
+Use HelloCircle.js as setup code.
 */
 var gl;
 var canvas;
@@ -171,7 +171,7 @@ function setupBuffers() {
   var triangleVertices = a1.concat(a3,a4 ,a1,a2,a4 ,a2,a4,a5, a2,a5,a6, a4,a5,a7, a5,a7,a8, a11,a7,a9, a7,a8,a10, a7,a9,a10, a8,a12,a10, b1,a1,a2, b1,b2,a2, b1,a1,a3, b3,a3,b1, a3,a4,b3, b3,b4,a4, a2,b2,a6, b6,a6,b2, a5,a6,b6, a5,b5,b6, a4,b4,a7, b4,b7,a7, b11,b7,a7, 
    b11,a11,a7, b11,a11,a9, b11,b9,a9, b9,a9,a10, b9,b10,a10, a12,a10,b10, a12,b12,b10, a12,b12,b8,  b8,a8,a12, a8,b8,a5, a5,b5,b8)
   for (i = 0; i <= triangleVertices.length;i+=3){
-     triangleVertices[i]+=frameNumber*0.002;
+     triangleVertices[i]+=frameNumber*0.002;//directly change the vertex positions
     //  triangleVertices[i+1]+=frameNumber*0.05;
      console.log(triangleVertices[0],'success')
   }
@@ -209,7 +209,8 @@ function draw() {
   var rotateM = mat4.create();
   var scaleM = mat4.create();
   var scale = Math.abs(Math.cos(degToRad(rotAngle)));
-  mat4.fromScaling(scaleM,[0.5+0.5*scale,1.0,1.0]);
+  // mat4.fromScaling(scaleM,[0.5+0.5*scale,1.0,1.0]);//scale by degree
+  mat4.fromScaling(scaleM,[0.2,0.2,1.0,1.0]);
   mat4.fromRotation(rotateM,degToRad(rotAngle),[0.0,0.0,1.0]);
   mat4.multiply(mvMatrix,mvMatrix,rotateM);
   mat4.multiply(mvMatrix,scaleM,mvMatrix);
@@ -223,6 +224,9 @@ function draw() {
   setMatrixUniforms();
   gl.drawArrays(gl.TRIANGLES, 0, vertexPositionBuffer.numberOfItems);
 }
+/**
+ * Draw call for the customized animation
+ */
 function draw2(){
   gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);  
@@ -340,7 +344,9 @@ function tick() {
       setupBuffers();
     draw();
     animate();
-    frameNumber++;
+    if(frameNumber < 1000){
+      frameNumber++;
+      }
     }else{
       requestAnimFrame(tick);
       draw2();
